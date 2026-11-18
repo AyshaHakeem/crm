@@ -80,6 +80,11 @@ def get_boot():
 			"is_demo_site": frappe.conf.get("is_demo_site"),
 			"demo_data_created": frappe.db.get_default("crm_demo_data_created") == "1",
 			"is_fc_site": is_fc_site(),
+<<<<<<< HEAD
+=======
+			"needs_password_setup": frappe.session.user != "Guest" and needs_password_setup(),
+			"crm_setup_pending": will_see_guided_setup(),
+>>>>>>> 9e5e3d0 (feat: send crm setup status in boot)
 			"cloud_settings": get_cloud_settings(),
 			"translated_doctypes": get_translated_doctypes(),
 			"translated_messages": get_messages_for_boot(),
