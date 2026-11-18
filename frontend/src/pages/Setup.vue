@@ -3,7 +3,11 @@
     <section class="flex min-h-screen flex-col px-6 py-5">
       <div class="flex h-8 items-center justify-between">
         <Button
+<<<<<<< HEAD
           v-if="current > 0"
+=======
+          v-if="canGoBack || activeStepView?.canGoBack"
+>>>>>>> 0d9c68d (feat: show setup back when a step can go back)
           variant="ghost"
           icon-left="lucide-arrow-left"
           :label="__('Back')"
