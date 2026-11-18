@@ -14,12 +14,32 @@
           @click="goBack"
         />
         <span v-else />
+<<<<<<< HEAD
         <Button
           variant="ghost"
           class="!text-ink-gray-5"
           :label="__('Skip setup')"
           @click="confirmSkipSetup"
         />
+=======
+        <div class="flex items-center gap-1">
+          <Button
+            v-if="activeStep.name !== 'set_password'"
+            variant="ghost"
+            class="!text-ink-gray-5"
+            :label="__('Skip setup')"
+            @click="confirmSkipSetup"
+          />
+          <Button
+            variant="ghost"
+            class="!text-ink-gray-5"
+            :icon="isDark ? 'lucide-sun' : 'lucide-moon'"
+            :tooltip="themeLabel"
+            :aria-label="themeLabel"
+            @click="toggleColorScheme"
+          />
+        </div>
+>>>>>>> 1da81a6 (feat: add theme switch to setup)
       </div>
       <main
         class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-10"
@@ -69,7 +89,7 @@ import SetupTelemetryConsent from '@/components/Setup/SetupTelemetryConsent.vue'
 import { setupFeedback } from '@/composables/modals'
 import { SETUP_DONE_KEY } from '@/router'
 import { globalStore } from '@/stores/global'
-import { Button, Progress, call, usePageMeta } from 'frappe-ui'
+import { Button, Progress, call, useColorScheme, usePageMeta } from 'frappe-ui'
 import { useTelemetry } from '@framework/ui/telemetry'
 import { computed, markRaw, provide, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -77,6 +97,12 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const { capture } = useTelemetry()
 const { $dialog } = globalStore()
+const { resolvedColorScheme, toggleColorScheme } = useColorScheme()
+
+const isDark = computed(() => resolvedColorScheme.value === 'dark')
+const themeLabel = computed(() =>
+  isDark.value ? __('Switch to light mode') : __('Switch to dark mode'),
+)
 
 const steps = [
   { name: 'connect_email', component: markRaw(SetupEmail) },
