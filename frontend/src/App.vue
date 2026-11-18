@@ -2,8 +2,16 @@
   <FrappeUIProvider>
     <NotPermitted v-if="$route.name === 'Not Permitted'" />
     <router-view v-else-if="$route.name === 'Setup'" />
+<<<<<<< HEAD
     <Layout v-else-if="session.isLoggedIn" class="isolate">
       <router-view :key="$route.meta.viewKey || $route.fullPath" />
+=======
+    <!-- no shell until the first route resolves, which may be the setup -->
+    <Layout v-else-if="session.isLoggedIn && $route.name" class="isolate">
+      <router-view
+        :key="$route.meta.viewKey || $route.fullPath.split('#')[0]"
+      />
+>>>>>>> ebc1840 (fix: hide app shell until the first route resolves)
     </Layout>
     <Dialogs />
     <DoctypeModals />
